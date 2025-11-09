@@ -7,7 +7,7 @@ spec:
   project: shop
   destination:
     server: https://kubernetes.default.svc
-    namespace: shop
+    namespace: argocd  
   source:
     repoURL: https://github.com/automatewithcharan/gitops-shop.git
     targetRevision: main
