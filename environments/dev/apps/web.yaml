@@ -5,18 +5,15 @@ metadata:
   namespace: argocd
 spec:
   project: shop
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: shop
+  destination: { server: https://kubernetes.default.svc, namespace: shop }
   sources:
-    # 1) Helm chart
     - repoURL: https://stefanprodan.github.io/podinfo
       chart: podinfo
       targetRevision: 6.9.2
       helm:
         valueFiles:
-          - $values/environments/dev/values/web-values.yaml  # <-- use file from the "values" source
-    # 2) Git repo that holds the values files
+          - $values/environments/dev/values/web-values.yaml
     - repoURL: https://github.com/automatewithcharan/gitops-shop.git
       targetRevision: main
-      ref: values  # <-- defines the alias used by $values
+      ref: values
+  syncPolicy: { automated: { prune: true, selfHeal: true } }
