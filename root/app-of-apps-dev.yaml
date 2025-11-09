@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
     namespace: shop
   source:
-    repoURL: https://github.com/YOUR_GH_USER/YOUR_REPO.git
+    repoURL: https://github.com/automatewithcharan/gitops-shop.git
     targetRevision: main
     path: environments/dev/apps
     directory:

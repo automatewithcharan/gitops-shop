@@ -8,7 +8,7 @@ spec:
   sourceRepos:
     - https://stefanprodan.github.io/podinfo
     - https://charts.bitnami.com/bitnami
-    - https://github.com/YOUR_GH_USER/YOUR_REPO.git
+    - https://github.com/automatewithcharan/gitops-shop.git
   destinations:
     - namespace: shop
       server: https://kubernetes.default.svc
