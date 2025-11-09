@@ -1,0 +1,4 @@
+replicaCount: 1
+service: { port: 9898 }
+metrics: { enabled: true }
+ui: { message: "QUEUE WORKER (dev)" }

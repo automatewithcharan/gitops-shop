@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-ing
+  namespace: shop
+spec:
+  ingressClassName: gce
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend: { service: { name: web-podinfo, port: { number: 9898 } } }
+      - path: /api
+        pathType: Prefix
+        backend: { service: { name: api-podinfo, port: { number: 9898 } } }

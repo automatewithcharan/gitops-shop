@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: shop
+  namespace: argocd
+spec:
+  description: Shop microservices (dev)
+  sourceRepos:
+    - https://stefanprodan.github.io/podinfo
+    - https://charts.bitnami.com/bitnami
+    - https://github.com/YOUR_GH_USER/YOUR_REPO.git
+  destinations:
+    - namespace: shop
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
