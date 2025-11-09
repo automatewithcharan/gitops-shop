@@ -11,10 +11,13 @@ spec:
     chart: podinfo
     targetRevision: 6.9.2
     helm:
-      valueFiles:
-        - environments/dev/values/api-values.yaml
       valuesObject:
+        replicaCount: 2
+        service: { port: 9898 }
+        metrics: { enabled: true }
+        ui: { message: "BACKEND API (dev)" }
         serviceMonitor:
           enabled: true
           labels: { release: kube-prom-stack }
   syncPolicy: { automated: { prune: true, selfHeal: true } }
+

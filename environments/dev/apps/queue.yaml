@@ -11,10 +11,13 @@ spec:
     chart: podinfo
     targetRevision: 6.9.2
     helm:
-      valueFiles:
-        - environments/dev/values/queue-values.yaml
       valuesObject:
+        replicaCount: 1
+        service: { port: 9898 }
+        metrics: { enabled: true }
+        ui: { message: "QUEUE WORKER (dev)" }
         serviceMonitor:
           enabled: true
           labels: { release: kube-prom-stack }
   syncPolicy: { automated: { prune: true, selfHeal: true } }
+

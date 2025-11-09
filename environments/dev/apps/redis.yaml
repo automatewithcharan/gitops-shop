@@ -11,6 +11,10 @@ spec:
     chart: redis
     targetRevision: 19.4.0
     helm:
-      valueFiles:
-        - environments/dev/values/redis-values.yaml
+      valuesObject:
+        architecture: standalone
+        auth: { enabled: false }
+        master:
+          persistence: { enabled: false }
   syncPolicy: { automated: { prune: true, selfHeal: true } }
+
