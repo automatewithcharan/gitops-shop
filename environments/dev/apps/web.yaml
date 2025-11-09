@@ -5,19 +5,18 @@ metadata:
   namespace: argocd
 spec:
   project: shop
-  destination: { server: https://kubernetes.default.svc, namespace: shop }
-  source:
-    repoURL: https://stefanprodan.github.io/podinfo
-    chart: podinfo
-    targetRevision: 6.9.2
-    helm:
-      valuesObject:
-        replicaCount: 2
-        service: { port: 9898 }
-        metrics: { enabled: true }
-        ui: { message: "WEB FRONTEND (dev)" }
-        serviceMonitor:
-          enabled: true
-          labels: { release: kube-prom-stack }
-  syncPolicy: { automated: { prune: true, selfHeal: true } }
-
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: shop
+  sources:
+    # 1) Helm chart
+    - repoURL: https://stefanprodan.github.io/podinfo
+      chart: podinfo
+      targetRevision: 6.9.2
+      helm:
+        valueFiles:
+          - $values/environments/dev/values/web-values.yaml  # <-- use file from the "values" source
+    # 2) Git repo that holds the values files
+    - repoURL: https://github.com/automatewithcharan/gitops-shop.git
+      targetRevision: main
+      ref: values  # <-- defines the alias used by $values
