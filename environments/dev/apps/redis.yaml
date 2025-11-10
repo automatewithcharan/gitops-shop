@@ -2,31 +2,20 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: redis
-  namespace: argocd
 spec:
   project: shop
-  destination: { server: https://kubernetes.default.svc, namespace: shop }
-  sources:
-  - repoURL: https://charts.bitnami.com/bitnami
+  source:
+    repoURL: https://charts.bitnami.com/bitnami
     chart: redis
     targetRevision: 19.4.0
     helm:
-<<<<<<< HEAD
       valueFiles:
         - $values/environments/dev/values/redis-values.yaml
-  - repoURL: https://github.com/automatewithcharan/gitops-shop.git
-    targetRevision: main
-    ref: value
-=======
-      valuesObject:
-        architecture: standalone
-        auth: { enabled: false }
-        master:
-          persistence: { enabled: false }
-        image:
-          registry: docker.io
-          repository: bitnami/redis
-          tag: "7.2.5-debian-12"
-  syncPolicy: { automated: { prune: true, selfHeal: true } }
->>>>>>> f44a282 (update image)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
 
