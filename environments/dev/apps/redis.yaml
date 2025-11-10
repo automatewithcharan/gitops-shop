@@ -6,12 +6,15 @@ metadata:
 spec:
   project: shop
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: redis
-    targetRevision: 19.4.0
-    helm:
-      valueFiles:
-        - environments/dev/values/redis-values.yaml
+    - repoURL: https://charts.bitnami.com/bitnami
+      chart: redis
+      targetRevision: 19.4.0
+      helm:
+        valueFiles:
+          - $values/dev/values/redis-values.yaml
+    - repoURL: https://github.com/automatewithcharan/gitops-shop.git
+      targetRevision: main
+      ref: values
   destination:
     server: https://kubernetes.default.svc
     namespace: shop
