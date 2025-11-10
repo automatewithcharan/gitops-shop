@@ -4,10 +4,9 @@ metadata:
   name: web-ing
   namespace: shop
   annotations:
-    kubernetes.io/ingress.class: gce
     networking.gke.io/managed-certificates: web-cert
-    kubernetes.io/ingress.global-static-ip-name: web-static-ip   # optional if you reserve one
 spec:
+  ingressClassName: gce
   rules:
   - host: charanthirumalla.online
     http:
