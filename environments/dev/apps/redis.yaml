@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   project: shop
-  source:
+  sources:
     - repoURL: https://charts.bitnami.com/bitnami
       chart: redis
       targetRevision: 19.4.0
