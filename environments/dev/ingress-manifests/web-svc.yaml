@@ -7,10 +7,10 @@ metadata:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
   selector:
-    app.kubernetes.io/name: podinfo
-    app.kubernetes.io/instance: web
+    app.kubernetes.io/name: web-podinfo
   ports:
   - name: http
     port: 9898
     targetPort: 9898
   type: ClusterIP
+

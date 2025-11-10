@@ -3,14 +3,27 @@ kind: Ingress
 metadata:
   name: web-ing
   namespace: shop
+  annotations:
+    kubernetes.io/ingress.class: gce
+    networking.gke.io/managed-certificates: web-cert
+    kubernetes.io/ingress.global-static-ip-name: web-static-ip   # optional if you reserve one
 spec:
-  ingressClassName: gce
   rules:
-  - http:
+  - host: charanthirumalla.online
+    http:
       paths:
       - path: /
         pathType: Prefix
-        backend: { service: { name: web-podinfo, port: { number: 9898 } } }
+        backend:
+          service:
+            name: web-podinfo
+            port:
+              number: 9898
       - path: /api
         pathType: Prefix
-        backend: { service: { name: api-podinfo, port: { number: 9898 } } }
+        backend:
+          service:
+            name: api-podinfo
+            port:
+              number: 9898
+
