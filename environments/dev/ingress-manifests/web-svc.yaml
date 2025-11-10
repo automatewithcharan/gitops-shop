@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: web-podinfo
+  name: api-podinfo
   namespace: shop
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
 spec:
+  type: NodePort                # 👈 change from ClusterIP to NodePort
   selector:
-    app.kubernetes.io/name: web-podinfo
+    app.kubernetes.io/name: api-podinfo
   ports:
-  - name: http
-    port: 9898
-    targetPort: 9898
-  type: ClusterIP
+    - name: http
+      port: 9898
+      targetPort: 9898
 
