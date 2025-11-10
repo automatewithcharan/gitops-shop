@@ -1,13 +1,26 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: ingress
-  namespace: argocd
+  name: web-ing
+  namespace: shop
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
-  project: shop
-  destination: { server: https://kubernetes.default.svc, namespace: shop }
-  source:
-    repoURL: https://github.com/automatewithcharan/gitops-shop.git
-    targetRevision: main
-    path: environments/dev/ingress-manifests
-  syncPolicy: { automated: { prune: true, selfHeal: true } }
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - charanthirumalla.online
+    secretName: web-tls   # cert-manager will create this
+  rules:
+  - host: charanthirumalla.online
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service: { name: web-podinfo, port: { number: 9898 } }
+      - path: /api
+        pathType: Prefix
+        backend:
+          service: { name: api-podinfo, port: { number: 9898 } }
+
